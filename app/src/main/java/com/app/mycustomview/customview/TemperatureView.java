@@ -277,7 +277,7 @@ public class TemperatureView extends View {
         scaleArcRadius = mSize / 2 - (dp2px(15) + dp2px(PADDING) / 4);
         Rect bounds = new Rect();
         progressTextPaint.getTextBounds(normal, 0, normal.length(), bounds);
-        canvas.drawText(warn, dp2px(12), -scaleArcRadius - dp2px(4), progressTextPaint);
+        canvas.drawText(normal, dp2px(12), -scaleArcRadius - dp2px(4), progressTextPaint);
         canvas.rotate(90, 0, 0);
         canvas.drawText(warn, dp2px(12), -scaleArcRadius - dp2px(4), progressTextPaint);
         canvas.rotate(60, 0, 0);
