@@ -8,4 +8,10 @@
         <!--当前温度数值大小-->
         <attr name="tempTextSize" format="dimension"/>
     </declare-styleable>
+    
+    <declare-styleable name="DownloadProgressBar">
+        <attr name="textSize" format="dimension"/>
+        <attr name="loading_color" format="color"/>
+        <attr name="stop_color" format="color"/>
+    </declare-styleable>
 </resources>
