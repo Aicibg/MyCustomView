@@ -31,7 +31,7 @@ public class DownloadProgressBar extends View implements Runnable {
 
     private Paint bgPaint;
     private Paint textPain;
-    private Rect textBouds;
+    private Rect textBounds;
     private Bitmap downloadBitmap;
     private Bitmap pgBitmap;
     private Canvas pgCanvas;
@@ -42,7 +42,7 @@ public class DownloadProgressBar extends View implements Runnable {
     private String progressText;
 
     private boolean isStop;
-
+    //图形混合模式
     private PorterDuffXfermode xFermode = new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP);
 
     private Thread thread;
@@ -76,7 +76,7 @@ public class DownloadProgressBar extends View implements Runnable {
         bgPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         textPain = new Paint(Paint.ANTI_ALIAS_FLAG);
         textPain.setTextSize(textSize);
-        textBouds = new Rect();
+        textBounds = new Rect();
 
         progressColor = loadingColor;
         downloadBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.flicker);
@@ -126,8 +126,8 @@ public class DownloadProgressBar extends View implements Runnable {
 
     private void drawColorProgressText(Canvas canvas) {
         textPain.setColor(Color.WHITE);
-        int width=textBouds.width();
-        int height=textBouds.height();
+        int width= textBounds.width();
+        int height= textBounds.height();
         float xWidth=(getMeasuredWidth()-width)/2;
         float yHeight=(getMeasuredHeight()+height)/2;
         float progressWidth=(currentProgress/MAX_PROGRESS)*getMeasuredWidth();
@@ -143,9 +143,9 @@ public class DownloadProgressBar extends View implements Runnable {
     private void drawProgressText(Canvas canvas) {
         textPain.setColor(progressColor);
         progressText = getProgressText();
-        textPain.getTextBounds(progressText,0,progressText.length(),textBouds);
-        int width=textBouds.width();
-        int height=textBouds.height();
+        textPain.getTextBounds(progressText,0,progressText.length(), textBounds);
+        int width= textBounds.width();
+        int height= textBounds.height();
         float xWidth=(getMeasuredWidth()-width)/2;
         float yHeight=(getMeasuredHeight()+height)/2;
         canvas.drawText(progressText,xWidth,yHeight,textPain);
