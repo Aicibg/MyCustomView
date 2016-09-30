@@ -32,7 +32,6 @@ public class DownloadProgressBar extends View implements Runnable {
     private Paint bgPaint;
     private Paint textPain;
     private Rect textBouds;
-    private Bitmap bgBitmap;
     private Bitmap downloadBitmap;
     private Bitmap pgBitmap;
     private Canvas pgCanvas;
@@ -118,7 +117,7 @@ public class DownloadProgressBar extends View implements Runnable {
         drawBorder(canvas);
         //进度
         drawProgress();
-        canvas.drawBitmap(bgBitmap, 0, 0, null);
+        canvas.drawBitmap(pgBitmap, 0, 0, null);
         //进度文本
         drawProgressText(canvas);
         //文本变色处理
@@ -130,7 +129,7 @@ public class DownloadProgressBar extends View implements Runnable {
         int width=textBouds.width();
         int height=textBouds.height();
         float xWidth=(getMeasuredWidth()-width)/2;
-        float yHeight=(getMeasuredHeight()-height)/2;
+        float yHeight=(getMeasuredHeight()+height)/2;
         float progressWidth=(currentProgress/MAX_PROGRESS)*getMeasuredWidth();
         if (progressWidth>xWidth){
             canvas.save(Canvas.CLIP_SAVE_FLAG);
@@ -148,7 +147,7 @@ public class DownloadProgressBar extends View implements Runnable {
         int width=textBouds.width();
         int height=textBouds.height();
         float xWidth=(getMeasuredWidth()-width)/2;
-        float yHeight=(getMeasuredHeight()-height)/2;
+        float yHeight=(getMeasuredHeight()+height)/2;
         canvas.drawText(progressText,xWidth,yHeight,textPain);
     }
 

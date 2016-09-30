@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 for(int i=0;i<100;i++){
                     try {
-                        Thread.sleep(20);
+                        Thread.sleep(100);
                         Message message=Message.obtain();
                         message.arg1=i+1;
                         handler.sendMessage(message);
