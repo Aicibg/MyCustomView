@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Region;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -60,7 +61,51 @@ public class CanvasView extends View {
        //沿着path写文字
       //  drawPathtext(canvas);
         //裁剪路径
-        drawClipPath(canvas);
+     //   drawClipPath(canvas);
+        //裁剪组合 Region.Op.DIFFERENCE，Region.Op.INTERSECT,Region.Op.REPLACE.....
+        //drawClip(canvas);
+        //画布的旋转，缩放，平移，错切
+        canvasVary(canvas);
+    }
+
+    private void canvasVary(Canvas canvas) {
+        mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        //旋转
+//        canvas.drawColor(Color.BLUE);
+//        canvas.drawRect(new Rect(0,0,200,200),mPaint);
+//        mPaint.setColor(Color.YELLOW);
+//        canvas.rotate(45);
+//        canvas.drawRect(new Rect(0,0,200,200),mPaint);
+        //缩放
+//        canvas.drawColor(Color.BLUE);
+//        mPaint.setColor(Color.GREEN);
+//        canvas.drawRect(0,0,200,250,mPaint);
+//        canvas.save();
+//        canvas.scale(0.5f,0.5f);
+//        mPaint.setColor(Color.RED);
+//        canvas.drawRect(0,0,200,250,mPaint);
+//        canvas.restore();
+//        canvas.scale(0.5f,0.5f,100,100);
+//        mPaint.setColor(Color.WHITE);
+//        canvas.drawRect(0,0,200,250,mPaint);
+        //错切
+        canvas.drawColor(Color.BLUE);
+        mPaint.setColor(Color.RED);
+        canvas.drawRect(new Rect(0,0,100,100),mPaint);
+        canvas.skew(0f,1f);
+        mPaint.setColor(Color.YELLOW);
+        canvas.drawRect(new Rect(0,0,100,100),mPaint);
+    }
+
+    private void drawClip(Canvas canvas) {
+        canvas.drawColor(Color.BLUE);
+        canvas.save();
+        canvas.clipRect(50,50,200,250);
+        canvas.clipRect(100,100,300,300, Region.Op.DIFFERENCE);
+        canvas.drawColor(Color.RED);
+//        canvas.restore();
+//        canvas.drawRect(50,50,200,250,mPaint);
+//        canvas.drawRect(100,100,300,300,mPaint);
     }
 
     private void drawClipPath(Canvas canvas) {
