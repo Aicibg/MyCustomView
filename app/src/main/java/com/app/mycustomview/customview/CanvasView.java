@@ -8,9 +8,11 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Picture;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Region;
+import android.graphics.drawable.PictureDrawable;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -23,18 +25,32 @@ import com.app.mycustomview.R;
 
 public class CanvasView extends View {
     private Paint mPaint;
+    private Picture mPicture;
 
     public CanvasView(Context context) {
         this(context, null);
     }
 
     public CanvasView(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
+        this(context, attrs,0);
     }
 
     public CanvasView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+      //  init();
+        recording();
+    }
+
+    private void recording() {
+        mPicture = new Picture();
+        Canvas canvas = mPicture.beginRecording(500, 500);
+        Paint mPaint = new Paint();
+        mPaint.setAntiAlias(true);
+        mPaint.setColor(Color.BLUE);
+        mPaint.setStyle(Paint.Style.FILL);
+        canvas.translate(250, 250);
+        canvas.drawCircle(0, 0, 100, mPaint);
+        mPicture.endRecording();
     }
 
     private void init() {
@@ -49,23 +65,32 @@ public class CanvasView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         //画边框
-        drawBorder(canvas);
+        //  drawBorder(canvas);
         //drawARGB
-       // drawArgb(canvas);
+        // drawArgb(canvas);
         //画弧面
-       // drawarc(canvas);
+        // drawarc(canvas);
         //画bitmap
-      // drawbitmap(canvas);
+        // drawbitmap(canvas);
         //画点
-     //   ddrawPoint(canvas);
-       //沿着path写文字
-      //  drawPathtext(canvas);
+        //   ddrawPoint(canvas);
+        //沿着path写文字
+        //  drawPathtext(canvas);
         //裁剪路径
-     //   drawClipPath(canvas);
+        //   drawClipPath(canvas);
         //裁剪组合 Region.Op.DIFFERENCE，Region.Op.INTERSECT,Region.Op.REPLACE.....
         //drawClip(canvas);
         //画布的旋转，缩放，平移，错切
-        canvasVary(canvas);
+        //   canvasVary(canvas);
+        pictures(canvas);
+    }
+
+    private void pictures(Canvas canvas) {
+//        mPicture.draw(canvas);
+//        canvas.drawPicture(mPicture,new RectF(0,0,mPicture.getWidth(),200));
+        PictureDrawable pictureDrawable=new PictureDrawable(mPicture);
+        pictureDrawable.setBounds(0,0,250,mPicture.getHeight());
+        pictureDrawable.draw(canvas);
     }
 
     private void canvasVary(Canvas canvas) {
@@ -91,17 +116,17 @@ public class CanvasView extends View {
         //错切
         canvas.drawColor(Color.BLUE);
         mPaint.setColor(Color.RED);
-        canvas.drawRect(new Rect(0,0,100,100),mPaint);
-        canvas.skew(0f,1f);
+        canvas.drawRect(new Rect(0, 0, 100, 100), mPaint);
+        canvas.skew(0f, 1f);
         mPaint.setColor(Color.YELLOW);
-        canvas.drawRect(new Rect(0,0,100,100),mPaint);
+        canvas.drawRect(new Rect(0, 0, 100, 100), mPaint);
     }
 
     private void drawClip(Canvas canvas) {
         canvas.drawColor(Color.BLUE);
         canvas.save();
-        canvas.clipRect(50,50,200,250);
-        canvas.clipRect(100,100,300,300, Region.Op.DIFFERENCE);
+        canvas.clipRect(50, 50, 200, 250);
+        canvas.clipRect(100, 100, 300, 300, Region.Op.DIFFERENCE);
         canvas.drawColor(Color.RED);
 //        canvas.restore();
 //        canvas.drawRect(50,50,200,250,mPaint);
@@ -109,51 +134,51 @@ public class CanvasView extends View {
     }
 
     private void drawClipPath(Canvas canvas) {
-        Path path=new Path();
-        RectF rectF=new RectF(0,0,300,300);
-        path.addArc(rectF,0,150);
+        Path path = new Path();
+        RectF rectF = new RectF(0, 0, 300, 300);
+        path.addArc(rectF, 0, 150);
         canvas.clipPath(path);
         canvas.drawColor(Color.RED);
     }
 
     private void drawPathtext(Canvas canvas) {
-        Path path=new Path();
-        path.addCircle(150,150,100, Path.Direction.CW);
+        Path path = new Path();
+        path.addCircle(150, 150, 100, Path.Direction.CW);
         mPaint.setTextSize(20);
-        canvas.drawPath(path,mPaint);
-        String text="沿着path写文字";
-        canvas.drawTextOnPath(text,path,0f,-8f,mPaint);
+        canvas.drawPath(path, mPaint);
+        String text = "沿着path写文字";
+        canvas.drawTextOnPath(text, path, 0f, -8f, mPaint);
     }
 
     private void ddrawPoint(Canvas canvas) {
-        canvas.drawPoint(10,10,mPaint);
+        canvas.drawPoint(10, 10, mPaint);
     }
 
     private void drawbitmap(Canvas canvas) {
-        Bitmap mBitmap= BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+        Bitmap mBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
 //        canvas.drawBitmap(mBitmap,0,0,mPaint);
 
 //        Rect src=new Rect(0,0,mBitmap.getWidth(),mBitmap.getHeight()/3);
 //        RectF dst=new RectF(0,mBitmap.getHeight(),canvas.getWidth(),mBitmap.getHeight()+200);
 //        canvas.drawBitmap(mBitmap,src,dst,mPaint);
 
-        Matrix matrix=new Matrix();
-        matrix.postTranslate(0,mBitmap.getHeight()+100);
-        canvas.drawBitmap(mBitmap,matrix,mPaint);
+        Matrix matrix = new Matrix();
+        matrix.postTranslate(0, mBitmap.getHeight() + 100);
+        canvas.drawBitmap(mBitmap, matrix, mPaint);
     }
 
     private void drawarc(Canvas canvas) {
-        RectF rectF=new RectF(0,0,200,200);
+        RectF rectF = new RectF(0, 0, 200, 200);
         mPaint.setColor(Color.BLACK);
-        canvas.drawArc(rectF,0,150,false,mPaint);
+        canvas.drawArc(rectF, 0, 150, false, mPaint);
     }
 
     private void drawArgb(Canvas canvas) {
-        canvas.drawARGB(122,111,22,11);
+        canvas.drawARGB(122, 111, 22, 11);
     }
 
     private void drawBorder(Canvas canvas) {
-        canvas.drawRect(0,0,300,300,mPaint);
+        canvas.drawRect(0, 0, 300, 300, mPaint);
     }
 
     @Override
@@ -167,7 +192,7 @@ public class CanvasView extends View {
         int width = 0;
         switch (heightSpecMode) {
             case MeasureSpec.AT_MOST:
-                height = 300;
+                height = 600;
                 break;
             case MeasureSpec.EXACTLY:
                 height = heightSpecSize;
@@ -178,7 +203,7 @@ public class CanvasView extends View {
 
         switch (widthSpecMode) {
             case MeasureSpec.AT_MOST:
-                width = 300;
+                width = 600;
                 break;
             case MeasureSpec.EXACTLY:
                 width = widthSpecSize;

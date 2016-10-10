@@ -15,14 +15,14 @@ public class ViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view);
-        mPieView= (PieView) findViewById(R.id.pieview);
-
-        mData=new ArrayList<>();
-        for(int i=0;i<5;i++){
-           PieData pieData=new PieData(i*15,"item"+i);
-            mData.add(pieData);
-        }
-
-        mPieView.setmDatas(mData);
+//        mPieView= (PieView) findViewById(R.id.pieview);
+//
+//        mData=new ArrayList<>();
+//        for(int i=0;i<5;i++){
+//           PieData pieData=new PieData(i*15,"item"+i);
+//            mData.add(pieData);
+//        }
+//
+//        mPieView.setmDatas(mData);
     }
 }

@@ -9,14 +9,14 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.app.mycustomview.ViewActivity">
-<!--
+
     <com.app.mycustomview.customview.CanvasView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />-->
+        android:layout_height="wrap_content" />
 
-
+<!--
     <com.app.mycustomview.customview.PieView
         android:id="@+id/pieview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" />-->
 </RelativeLayout>
